@@ -68,5 +68,3 @@ static void inicia(void)
 			}
 		}
 	}
-
-	
