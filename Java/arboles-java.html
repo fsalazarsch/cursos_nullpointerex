@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>¿Cómo crear un árbol?</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE="Árbol
+    "
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Árboles en Java"
+HREF="c13.html"><LINK
+REL="PREVIOUS"
+TITLE="Árboles en Java"
+HREF="c13.html"><LINK
+REL="NEXT"
+TITLE="Eventos Asociados"
+HREF="c54.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="APPLICATION"
+>Árbol</SPAN
+>: Jtree, Eventos asociados</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c13.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 1. Árboles en Java</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c54.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN29">1.2. ¿Cómo crear un árbol?</H1
+><P
+></P
+><UL
+><LI
+><P
+>Para crear un árbol se tiene que crear una raíz que es el nodo principal del cual se van a colocar los demás nodos. 
+	  </P
+><PRE
+CLASS="SCREEN"
+>	    public Arbol() {
+	      ...
+	    <TT
+CLASS="USERINPUT"
+><B
+>  top = new DefaultMutableTreeNode("Raíz");</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>  createNodes(top);</B
+></TT
+>
+	  	     
+	  </PRE
+></LI
+><LI
+><P
+>Crea un árbol que permite una selección a la vez.</P
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="USERINPUT"
+><B
+>JTree tree = new JTree(treeModel);</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>tree.getSelectionModel().setSelectionMode</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>    (TreeSelectionModel.SINGLE_TREE_SELECTION);</B
+></TT
+>
+	  </PRE
+></LI
+><LI
+><P
+>Se incluye para las hojas la imagen "right.gif"</P
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="USERINPUT"
+><B
+>DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>renderer.setLeafIcon(new ImageIcon("./right.gif"));</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>tree.setCellRenderer(renderer);</B
+></TT
+>
+	  </PRE
+></LI
+><LI
+><P
+>Aquí se se crean los nodos del inicio del programa con sus respectivos programas</P
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="USERINPUT"
+><B
+>private TreeNode createNodes(DefaultMutableTreeNode top) {
+	      DefaultMutableTreeNode category = null;
+	      DefaultMutableTreeNode book = null;
+	      DefaultMutableTreeNode sub = null;
+	      category = new DefaultMutableTreeNode("Arboles");
+	      top.add(category);
+	      book = new DefaultMutableTreeNode("Nodos");
+	      top.add(book);
+	      ....
+	    </B
+></TT
+>
+	  </PRE
+><P
+> En este momento ya tenemos creado el árbol con sus respectivos nodos</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c13.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c54.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Árboles en Java</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c13.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Eventos Asociados</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

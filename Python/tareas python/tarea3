@@ -1,0 +1,133 @@
+ING1310 - Introducción a la Computación
+Tarea 3
+Fecha de Entrega: jueves 13 de noviembre hasta las 23:00.
+1.
+Introducción
+En esta tarea el objetivo es simular un ecosistema de depredadores y presas. El ecosistema debe
+ser representado utilizando una matriz, y las celdas de dicha matriz deben contener las especies del
+ecosistema. Su programa deberá leer una serie de parámetros desde un archivo de entrada, construir la
+matriz de acuerdo a dichos parámetros, y realizar la simulación guardando en un archivo de salida cada
+estado del ecosistema simulado. Al finalizar la simulación, su programa deberá desplegar gráficos en donde
+se muestre la evolución del ecosistema.
+2.
+Requisitos
+El ecosistema debe ser representado por una matriz de de M × N celdas (filas y columnas numeradas
+a partir de cero). En las celdas no vacías habitan tres tipos de seres: plantas, conejos y zorros. Los conejos
+comen plantas, y los zorros comen conejos. Una celda puede estar vacía u ocupada por una de estas
+especies. Si una celda está ocupada, lo está por un solo ser a la vez.
+La matriz del ecosistema es no circular, es decir, las celdas en los bordes y esquinas tienen menos
+celdas vecinas que aquellas en el interior. Una celda vecina es aquella que limita con otra en su costado o
+esquina. Como es evidente, una celda puede tener hasta ocho vecinos.
+El estado de las celdas del ecosistema debe evolucionar a través de instantes discretos sucesivos de
+tiempo. Vale decir, en el instante T 1 el sistema tiene un estado E 1 , y en el instante T 2 el sistema tiene
+otro estado E 2 . El paso del estado E 1 al E 2 está dado por la aplicación de un conjunto de reglas al estado
+particular de cada celda del ecosistema en T 1 . El último instante del ecosistema será T max .
+2.1. Reglas de cambio de estado
+Las reglas de cambio de estado para cada paso de la simulación, de E n a E n+1 , son las siguientes:
+En cada celda vacía existe una probabilidad base P base_planta de que aparezca una nueva planta
+en el estado siguiente. Si en la vecindad de una celda vacía hay S plantas, esta probabilidad se
+multiplica por (1 + 0,1 × S). Luego, la probabilidad efectiva de aparición de una planta debe ser
+min(1, P base_planta × (1 + 0,1 × S)) (el mínimo entre 1.0 y la probabilidad calculada, de manera que
+nunca se exceda probabilidad 1.0).
+La planta al crearse tiene un valor nutricional V base . En el segundo paso, crece a tamaño mediano y
+tiene valor nutricional de 2 × V base . En el tercer paso, la planta crece a tamaño grande y tiene valor
+nutricional de 3 × V base .
+Un animal (conejo o zorro) se reproduce con probabilidad P repr_con o P repr_zor , creando un nuevo
+animal de su misma especie en alguna celda vecina desocupada y elegida al azar. Si ninguna celda
+vecina está desocupada, entonces no puede reproducirse.
+La energía vital V de un animal comienza en el nivel V ini_con o V ini_zor . En cada paso, si el animal
+no come, su V disminuye en 1. Si V llega a cero, el animal muere de hambre y desaparece, dejando
+la celda desocupada.
+Un animal tiene hambre si su valor V es menor que V ham_con o V ham_zor . Si un animal con ham-
+bre tiene una presa (alimento) en una celda vecina, entonces con probabilidad P come_con_plan o
+1P come_zor_con comerá su presa y se moverá a dicha celda. Si hay más de una presa en la vecindad,
+primero elige una de ellas al azar y luego se aplica la probabilidad de comerla. El animal sumará a
+su valor V el valor V de su presa.
+Si un animal no tiene hambre, o no tiene una presa en su vecindad, o no comió alguna presa vecina,
+entonces con probabilidad P mov_con o P mov_zor decidirá moverse a una celda vecina desocupada
+elegida al azar (meroderará). En caso contrario, permanecerá en su lugar. Un conejo con probabilidad
+0,5 se moverá otra casilla más en la dirección elegida, si esta segunda celda existe y también está
+vacía. Si no existe ninguna celda vacía, el animal no se moverá (excepto para comer).
+Notas sobre la aplicación de las reglas:
+El orden en que se aplican las reglas a cada ser afecta el estado resultante del ecosistema. Por
+ejemplo, un conejo puede estar a la derecha de una planta, y un zorro a la derecha de un conejo. Si
+el conejo se actualiza primero que el zorro, el conejo podrá comer la planta a su izquierda, moverse
+hacia donde se encontraba la planta y quedar fuera del alcance del zorro. Si embargo, si el zorro
+se actualiza primero, podría comer al conejo, el cual desaparecerá y no tendrá opción de comerse
+la planta. Por estos motivos, se define el orden de actualización de los seres de acuerdo
+al orden en que fueron creados (insertados en el mundo por aparición o reproducción). Hint:
+Asigne a cada ser un número identificador correlativo único, y mantenga un diccionario que relacione
+dicho identificador con las coordenadas del ser. Luego, puede leer las claves del diccionario ordenadas
+en forma ascendente para realizar la actualización de la matriz.
+En la actualización de cada ser se aplican primero las reglas de reproducción/aparición, luego
+las de comer/crecer, y finalmente, las de movimiento (si se aplica).
+2.2. Interacción con el usuario
+En su tarea, la interacción con el usuario será mínima. El programa deberá limitarse a preguntar
+al usuario el nombre del archivo de entrada a procesar (ver sección siguiente), ejecutar la simulación y
+finalmente mostrar al usuario gráficos con la evolución del ecosistema.
+2.3. Manejo de archivos
+Para probar su tarea encontrará junto a este enunciado un archivo de datos de ejemplo. Este tiene el
+siguiente formato, línea por línea:
+M y N , valores enteros separados por un espacio
+T max , valor entero
+P base_planta , valor decimal
+V base , valor entero
+V ini_con y V ini_zor , valores enteros separados por un espacio
+V ham_con y V ham_zor , valores enteros separados por un espacio
+P repr_con y P repr_zor , valores decimales separados por un espacio
+P come_con_plan y P come_zor_con , valores decimales separados por un espacio
+P mov_con y P mov_zor , valores decimales separados por un espacio
+2Líneas sucesivas para definir las especies, coordenadas y estados energéticos iniciales de los seres:
+• Si el ser es un conejo, la línea se ve de la siguiente manera:
+C 2 3 49
+El primer valor indica el tipo de ser ’C’ (conejo), el segundo valor indica la fila donde debe
+aparecer, el tercero la columna, y el cuarto el valor energético inicial. Los valores están separados
+por un espacio.
+• Si el ser es un zorro, la línea tiene el mismo formato que la del conejo, pero en vez del caracter
+C se observará una Z.
+• Si el ser es una planta, el primer valor es ’P, el segundo valor indica la fila, el tercero la columna
+y el cuarto valor indica la etapa de desarrollo de la planta (1, 2 ó 3).
+El archivo de salida de la simulación debe llamarse ‘salida.txt‘ y debe contener todas las matrices
+del ecosistema, desde el primer instante de tiempo hasta T max . Las celdas de cada matriz deben mostrarse
+como parejas de corchetes que deben contener texto indicando el tipo de ser junto con el estado energético
+(si es animal) o el estado de desarrollo (si es planta). Considere como ejemplo la siguiente matriz de 7 × 3:
+[Z:145][P:1 ][P:1 ][P:2
+[P:1 ][-----][P:1 ][P:3
+[P:1 ][-----][C:20 ][P:2
+][C:20 ][C:20 ][Z:20 ]
+][-----][C:20 ][-----]
+][Z:50 ][C:20 ][P:10 ]
+Separe matrices sucesivas por una línea vacía.
+Los conejos y zorros deben aparecer representados por letras C y Z junto con el estado energético
+correspondiente, y las plantas por una letra P y su estado de desarrollo. Las celdas vacías deben estar
+representadas con por guiones.
+2.4. Generación de gráficos
+Al finalizar la simulación, su programa debe mostrar al usuario dos gráficos en una misma ventana
+(utilice la función subplot):
+Energía vs. Tiempo: Debe mostrar la evolución de la energía total del ecosistema a lo largo de todos
+los instantes de tiempo, de 0 hasta T max . El gráfico se debe desplegar con título y rótulos de eje
+apropiados. Grafique la energía utilizando línea continua.
+Número de individuos vs. Tiempo: Debe mostrar la evolución del número de individuos existentes
+de cada tipo (planta, conejo, zorro), con título y rotulación de ejes apropiada.
+3.
+Evaluación y Entrega
+Fecha de entrega: jueves 13 de noviembre hasta las 23:00, según la hora del servidor de la página
+del curso en http://www.inguandes.cl. Por ningún motivo se aceptarán tareas atrasadas.
+Formato de entrega: Subir un solo archivo comprimido con todo el código fuente de su programa
+al módulo de tareas de la página del curso en http://www.inguandes.cl, con el nombre de archivo
+“Tarea3-RUT.zip” el cual deberá contener los archivos de código fuente en Python (los .py), reemplazando
+“RUT” por su número de RUT sin puntos ni guión. Por ejemplo, si su Rut es 18.123.122-K, el nombre de
+archivo debe ser “Tarea3-18123122k.zip”.
+Aquellas tareas que no compilen, es decir, que no sea posible ejecutarlas, o produzcan errores al hacerlo,
+tendrán como máximo nota 3,0 en la tarea. Debe asegurarse de que su tarea sea descargable de forma
+íntegra (todos los archivos .py)
+34.
+Consideraciones
+El trabajo en las tareas es estrictamente individual, por lo que cuide su tarea para que no sea copiada
+parcial o íntegramente por otros. Todas las tareas entregadas serán comparadas por un sistema auto-
+mático de detección de plagios. Cualquier copia será penalizada, recibiendo el mismo castigo tanto quien
+copia como quien permite que le copien. También es considerada copia cualquier ayuda externa recibida
+directamente en la tarea, sin importar si proviene de un alumno del curso, de la universidad, o de otro
+lugar. El castigo será establecido por el Consejo de la Facultad, siendo como mínimo un 1,0 de promedio
+en el curso.
+4
