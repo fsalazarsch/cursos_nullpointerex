@@ -1,0 +1,17 @@
+ 
+<html>
+    <head>        
+    </head>
+    <body>
+        <script type="text/javascript">
+            var fxcalendar_config = {
+                host: "http://calendar.fxstreet.com",
+                eventurl: "./main.aspx",
+                culture: "es-es", 
+                zone: "all", 
+            };
+        </script>
+        <script type="text/javascript" src="http://calendar.fxstreet.com/scripts/mini"></script>
+        <div id="fxst_calendar" style="width: 100%"></div>
+    </body>
+</html>
