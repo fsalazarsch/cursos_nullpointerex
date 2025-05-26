@@ -1,0 +1,29 @@
+<?xml-stylesheet type="text/xsl" href="todo.xsl" version="1.0" encoding="UTF-8"?>  
+<formulario>
+	<datos>
+	<nombre>Nombre: </nombre>
+	<descr><input type="text" size="30" name="nom"></input></descr>
+	<nombre>Apellido</nombre>
+	<descr><input type="text" size="30" name="ape"></input></descr>
+	<nombre>E-Mail</nombre>
+	<descr><input type="text" size="30" name="mail"></input></descr>
+	<nombre>Contrasena</nombre>
+	<descr><input type="password" size="30" name="pass"></input></descr>
+	<nombre>Reingresa Contrasena</nombre>
+	<descr><input type="password" size="30" name="re_pass"></input></descr>
+	<nombre>Sexo</nombre>
+		<descr>
+		<select name="sexo" size="1">
+		<option value="masculino">masculino</option>
+		<option VALUE="femenino">femenino</option>
+		</select>
+		</descr>
+	<nombre>Fecha nacimiento</nombre>
+		<descr>	
+		<input type="text" size="2" name="dia">/</input>
+		<input type="text" size="2" name="mes">/</input>
+		<input type="text" size="4" name="ano"></input>
+		</descr>
+	</datos>
+	
+</formulario>

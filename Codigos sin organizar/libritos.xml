@@ -1,0 +1,11 @@
+<?xml-stylesheet type="text/xsl" href="todo.xsl" version="1.0" encoding="UTF-8"?>  
+<biblioteca>
+	<libro>
+	<titulo>Las Aventuras de Sherlock Holmes</titulo>
+	<autor>Sir Arthur Conan Doyle</autor>
+	</libro>
+	<libro>
+	<titulo>Yo, robot</titulo>
+	<autor>Isaac Asimov</autor>
+	</libro>
+</biblioteca>
